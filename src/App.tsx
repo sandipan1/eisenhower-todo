@@ -100,6 +100,12 @@ const App = () => {
     }
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      addTask();
+    }
+  };
+
   const TaskItem = ({ task, listKey }: { task: Task; listKey: keyof Tasks }) => (
     <div 
       draggable 
@@ -125,6 +131,7 @@ const App = () => {
           type="text" 
           value={newTask} 
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNewTask(e.target.value)} 
+          onKeyDown={handleKeyDown}
           placeholder="Add a task..." 
           className="flex-grow"
         />
