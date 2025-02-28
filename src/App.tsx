@@ -1,4 +1,4 @@
-import React, { useState, DragEvent } from 'react';
+import React, { useState, DragEvent, useEffect } from 'react';
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
@@ -43,9 +43,18 @@ const quadrantInfo: Record<keyof Omit<Tasks, 'taskBank'>, QuadrantInfo> = {
   notUrgentNotImportant: { title: 'Eliminate', subtitle: 'Not Urgent, Not Important' }
 };
 
+const STORAGE_KEY = 'eisenhower-tasks';
+
 const App = () => {
-  const [tasks, setTasks] = useState<Tasks>(initialTasks);
+  const [tasks, setTasks] = useState<Tasks>(() => {
+    const savedTasks = localStorage.getItem(STORAGE_KEY);
+    return savedTasks ? JSON.parse(savedTasks) : initialTasks;
+  });
   const [newTask, setNewTask] = useState('');
+
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
+  }, [tasks]);
 
   const addTask = () => {
     if (newTask.trim() !== '') {
