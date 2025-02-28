@@ -145,7 +145,7 @@ const App = () => {
           </CardHeader>
           <CardContent>
             <div 
-              className="space-y-2 min-h-[100px] p-4 rounded-lg border-2 border-dashed"
+              className="space-y-2 min-h-[100px] p-4 rounded-lg border-2 border-dashed overflow-y-auto max-h-60"
               onDragOver={(e) => e.preventDefault()}
               onDrop={(e) => onDrop(e, 'taskBank')}
             >
